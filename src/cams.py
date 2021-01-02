@@ -1,10 +1,11 @@
-
 import cdsapi
 import yaml
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-def load_cams():
+def load_cams(file_name, variables, date_range, area):
     with open('.adsapi', 'r') as f:
-            credentials = yaml.safe_load(f)
+        credentials = yaml.safe_load(f)
 
     c = cdsapi.Client(url=credentials['url'], key=credentials['key'])
 
@@ -13,17 +14,9 @@ def load_cams():
         {
             'format': 'grib',
             'model_level': '60',
-            'variable': [
-                'carbon_monoxide', 'temperature',
-            ],
-            'date': '2018-05-01/2018-06-01',
-            'time': [
-                '00:00', '03:00', '06:00',
-                '09:00', '12:00', '15:00',
-                '18:00', '21:00',
-            ],
-            'area': [
-                22, 5, 20, 6,
-            ],
+            'variable': variables,
+            'date': date_range,
+            'time': ['00:00', '06:00', '12:00', '18:00'],
+            'area': area,
         },
-        'data/cams/test.grib')
+        f'raw/{file_name}')

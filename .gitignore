@@ -1,2 +1,4 @@
 .adsapi
 .cdsapi
+__pycache__/
+raw/
