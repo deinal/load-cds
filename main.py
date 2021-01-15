@@ -3,15 +3,13 @@ from src.download_data import download_data
 from src.preprocess import preprocess_data
 import pandas as pd
 
-def request(source, name, variables, set_positive_longitude=True):
+def request(source, name, variables, set_positive_longitude):
     cities_info = pd.read_csv('cities_info.csv')
 
+    make_directory(f'data/{name}')
     for _, row in cities_info.iterrows():
         make_directory(f'raw/{name}/{row["city"]}')
         download_data(source, name, variables, row['city'], row['start_date'], row['end_date'], row['latitude'], row['longitude'])
-
-    for _, row in cities_info.iterrows():
-        make_directory(f'data/{name}')
         preprocess_data(name, row['city'], row['latitude'], row['longitude'], set_positive_longitude)
 
 if __name__ == '__main__':  

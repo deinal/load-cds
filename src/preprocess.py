@@ -17,4 +17,6 @@ def preprocess_data(name, city, latitude, longitude, set_positive_longitude):
    df = df.groupby(df.index.date).mean()
    df.longitude = given_longitude
    df.index.name = 'date'
-   df.to_csv(f'data/{name}/{city}.csv')
+   outfile = f'data/{name}/{city}.csv'
+   print(outfile, 'done')
+   df.to_csv(outfile)
