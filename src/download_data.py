@@ -6,7 +6,7 @@ import signal
 import pandas as pd
 
 def handler(signum, frame):
-    raise Exception("Time exceeded!")
+    raise TimeoutError('Time exceeded!')
 
 def download_data(source, name, variables, city, start_date, end_date, latitude, longitude):
     area = [latitude+1.0, longitude, latitude, longitude+1.0]
@@ -17,7 +17,7 @@ def download_data(source, name, variables, city, start_date, end_date, latitude,
         file_name = f'{name}/{city}/{month_start.year:04d}{month_start.month:02d}.grib'
         while True:
             signal.signal(signal.SIGALRM, handler)
-            signal.alarm(1200)
+            signal.alarm(36000)
             try:
                 if source == 'cams':
                     load_cams(file_name, variables, date_range, area)
@@ -27,6 +27,11 @@ def download_data(source, name, variables, city, start_date, end_date, latitude,
                     print('Invalid source')
                     sys.exit()
                 break
+            except TimeoutError as te:
+                print(te)
+                print('Trying again ...')
+                continue
             except Exception as e:
                 print(e)
-                print("Trying again ...")
+                break
+    signal.alarm(0)
