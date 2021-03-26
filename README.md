@@ -33,7 +33,9 @@ key: {uid}:{api-key}
 
 ## Run
 
-Specify requests in `main.py` and execute it.
+Specify requests in `main.py` and execute it. Add the specification csv file as a command line argument.
+
+E.g. `python main.py -f cities_info.csv`
 
 ## Install dependencies
 
