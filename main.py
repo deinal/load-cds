@@ -43,3 +43,7 @@ if __name__ == '__main__':
     request(source='cams', name='slow_access', file=args.file, set_positive_longitude=True, variables=[
         'ammonia', 'relative_humidity', 'specific_rain_water_content', 'terpenes'
     ])
+
+    request(source='cams', name='wind', file=args.file, set_positive_longitude=True, variables=[
+        'u_component_of_wind', 'v_component_of_wind'
+    ])
