@@ -16,7 +16,11 @@ def load_cams(file_name, variables, date_range, area):
             'model_level': '60',
             'variable': variables,
             'date': date_range,
-            'time': ['00:00', '06:00', '12:00', '18:00'],
+            'time': [
+                '00:00', '03:00', '06:00',
+                '09:00', '12:00', '15:00',
+                '18:00', '21:00',
+            ],
             'area': area,
         },
         f'raw/{file_name}')

@@ -14,7 +14,7 @@ def preprocess_data(name, city, latitude, longitude, set_positive_longitude):
    concat_files(files, outgrib)
    ds = xr.open_dataset(outgrib, engine='cfgrib')
    df = ds.loc[dict(latitude=latitude, longitude=longitude)].to_dataframe()
-   df = df.groupby(df.index.date).mean()
+   # df = df.groupby(df.index.date).mean()
    df.longitude = given_longitude
    df.index.name = 'date'
    outfile = f'data/{name}/{city}.csv'
